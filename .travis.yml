@@ -1,0 +1,14 @@
+# Need sudo permissions
+sudo: required
+services:
+  - docker
+
+before_install:
+  # Don't NEED to put username/project-name, can just be "test" etc, but good convention
+  - docker build -t alistairreynolds/docker-react -f Dockerfile.dev .
+
+script:
+  # Need -- --coverage as a workaround so it can auto-exit after the test instead of waiting for input
+  - docker run -e CI=true alistairreynolds/docker-react npm run test -- --coverage
+
+#  - docker run USERNAME/docker-react npm run test -- --coverage
