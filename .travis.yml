@@ -11,4 +11,14 @@ script:
   # Need -- --coverage as a workaround so it can auto-exit after the test instead of waiting for input
   - docker run -e CI=true alistairreynolds/docker-react npm run test -- --coverage
 
-#  - docker run USERNAME/docker-react npm run test -- --coverage
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-eu-west-2-529160058515"
+  bucket_path: "docker-react" # Same as the app name to before deploying
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
