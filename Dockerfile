@@ -11,6 +11,8 @@ RUN npm run build
 
 # Run phase. Start up nginx
 FROM nginx
+# Need to open port 80
+EXPOSE 80
 # Specify a phase to copy from    Destination is found on nginx documentation
 COPY --from=builder /app/build /usr/share/nginx/html
 # No need to run nas nginx will start when the contaienr starts anyways
