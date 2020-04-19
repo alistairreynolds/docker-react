@@ -1,7 +1,7 @@
 # Production build dockerfile. Multi-step process for using multiple docker hub images
 
 # Build phase - build Node modules
-FROM node:alpine AS builder
+FROM node:alpine
 WORKDIR '/app'
 COPY package.json .
 RUN npm install
@@ -14,5 +14,5 @@ FROM nginx
 # Need to open port 80
 EXPOSE 80
 # Specify a phase to copy from    Destination is found on nginx documentation
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
 # No need to run nas nginx will start when the contaienr starts anyways
